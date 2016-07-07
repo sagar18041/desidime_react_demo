@@ -13,14 +13,11 @@ export default class Deals extends React.Component {
     this.getDeals();
   }
   getDeals(){
-    const URL = "http://139.162.46.29/v2/android?app_version=1";
+    const URL = "http://xx.xx.xx.xx/v2/android?app_version=1";
     var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    headers.append("X-Desidime-Client", "68045fd226ab32029c98bf4533bfa98b3c50423094d292d70ca2702e61a9679b");
-    var request = new Request(URL, {headers: headers});
     Request
       .get(URL)
-      .set('X-Desidime-Client', '68045fd226ab32029c98bf4533bfa98b3c50423094d292d70ca2702e61a9679b')
+      .set('X-Desidime-Client', 'xxxx')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);

@@ -13,14 +13,12 @@ export default class Coupons extends React.Component {
     this.getCoupons();
   }
   getCoupons(){
-    const URL = "http://139.162.46.29/v2/coupons.json";
+    const URL = "http://xx.xx.xx.xx/v2/coupons.json";
     var headers = new Headers();
-    headers.append('Accept', 'application/json');
-    headers.append("X-Desidime-Client", "68045fd226ab32029c98bf4533bfa98b3c50423094d292d70ca2702e61a9679b");
     var request = new Request(URL, {headers: headers});
     Request
       .get(URL)
-      .set('X-Desidime-Client', '68045fd226ab32029c98bf4533bfa98b3c50423094d292d70ca2702e61a9679b')
+      .set('X-Desidime-Client', 'xxxxxx')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);
