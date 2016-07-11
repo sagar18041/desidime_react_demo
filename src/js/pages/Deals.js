@@ -13,11 +13,11 @@ export default class Deals extends React.Component {
     this.getDeals();
   }
   getDeals(){
-    const URL = "http://xx.xx.xx.xx/v2/android?app_version=1";
+    const URL = "http://xxx.xxx.xxx/v2/android?app_version=1";
     var headers = new Headers();
     Request
       .get(URL)
-      .set('X-Desidime-Client', 'xxxx')
+      .set('X-Desidime-Client', 'xxx')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);
@@ -36,16 +36,7 @@ export default class Deals extends React.Component {
       return <Deal key={i} title={deal.title} score={deal.score} comment_count={deal.comment_count} vote_value={deal.vote_value} current_price={deal.current_price} original_price={deal.original_price} off_percentage={deal.off_percentage} share_url={deal.share_url} deal_url={deal.deal_url} />
     }); 
     return (
-      <div>
-        <div class="row">
-          <div class="col-md-12" >
-            <h4>{this.state.dealsTitle}</h4>
-            <ul>
-              {Deals}
-            </ul>
-          </div>
-        </div>
-      </div>
+      {Deals}
     );
   }
 }

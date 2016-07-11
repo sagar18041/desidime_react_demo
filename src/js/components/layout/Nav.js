@@ -29,6 +29,7 @@ export default class Nav extends React.Component {
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
+            <a class="navbar-brand" href="/">Desidime</a>
             <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -37,7 +38,7 @@ export default class Nav extends React.Component {
             </button>
           </div>
           <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
               <li class={dealClass}>
                 <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Deals</IndexLink>
               </li>

@@ -17,12 +17,12 @@ export default class Home extends React.Component {
     this.getDeals();
   }
   getDeals(){
-    const URL = "http://xx.xx.xx.xx/v2/android?app_version=1";
+    const URL = "http://xxx.xxx.xxx/v2/android?app_version=1";
     var headers = new Headers();
     var request = new Request(URL, {headers: headers});
     Request
       .get(URL)
-      .set('X-Desidime-Client', 'xxxxx')
+      .set('X-Desidime-Client', 'xxx')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);
@@ -68,29 +68,29 @@ export default class Home extends React.Component {
     
     return (
       <div>
-        <div class="row">
-          <div class="col-md-12" >
-            <h4>{this.state.dealsTitle}</h4>
-            <ul>
-              {Deals}
-            </ul>
-            <h4>{this.state.couponsTitle}</h4>
-            <ul>
-              {Coupons}
-            </ul>
-            <h4>{this.state.topicsTitle}</h4>
-            <ul>
-              {Topics}
-            </ul>
-            <h4>{this.state.merchantsTitle}</h4>
-            <ul>
-              {Merchants}
-            </ul>
-            <h4>{this.state.channelsTitle}</h4>
-            <ul>
-              {Channels}
-            </ul>
+        <div class="row gutter-bottom">
+          <div class="col-lg-12 col-md-12 col-sm-12 gutter-top" >
+            <h1 class="margin0">{this.state.dealsTitle} </h1>
           </div>
+          {Deals}
+        </div>
+        <div class="row gutter-bottom">
+          <div class="col-lg-12 col-md-12 col-sm-12 gutter-top" >
+            <h2>{this.state.couponsTitle}</h2>
+          </div>
+          {Coupons}
+        </div>
+        <div class="row gutter-bottom">
+          <div class="col-lg-12 col-md-12 col-sm-12 gutter-top" >
+            <h2>{this.state.merchantsTitle}</h2>
+          </div>
+          {Merchants}
+        </div>
+        <div class="row gutter-bottom">
+          <div class="col-lg-12 col-md-12 col-sm-12 gutter-top" >
+            <h2>{this.state.channelsTitle}</h2>
+          </div>
+          {Channels}
         </div>
       </div>
     );

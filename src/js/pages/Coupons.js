@@ -13,12 +13,12 @@ export default class Coupons extends React.Component {
     this.getCoupons();
   }
   getCoupons(){
-    const URL = "http://xx.xx.xx.xx/v2/coupons.json";
+    const URL = "http://xxx.xxx.xxx/v2/coupons.json";
     var headers = new Headers();
     var request = new Request(URL, {headers: headers});
     Request
       .get(URL)
-      .set('X-Desidime-Client', 'xxxxxx')
+      .set('X-Desidime-Client', 'xxx')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);
@@ -41,9 +41,7 @@ export default class Coupons extends React.Component {
         <div class="row">
           <div class="col-md-12" >
             <h4>{this.state.couponsTitle}</h4>
-            <ul>
-              {Coupons}
-            </ul>
+            {Coupons}
           </div>
         </div>
       </div>
