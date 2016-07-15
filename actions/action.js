@@ -16,12 +16,12 @@ function requestLogin(creds) {
   }
 }
 
-function receiveLogin(user) {
+function receiveLogin(data) {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: data.access_token
   }
 }
 
@@ -62,34 +62,37 @@ function receiveLogout() {
 // dispatches actions along the way
 export function loginUser(creds) {
   
-  alert("hi");
 
   let config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-    body: `username=${creds.username}&password=${creds.password}`
+    headers: { 'Content-Type':'application/x-www-form-urlencoded', 'X-Desidime-Client':'40f966d1bdc4f62edc9adfae6cb44cda93627d94cdfacbbf394daf43b28a92ec' },
+    body: `login=${creds.username}&password=${creds.password}&grant_type=password&client_id=40f966d1bdc4f62edc9adfae6cb44cda93627d94cdfacbbf394daf43b28a92ec&client_secret=5fa5d980084d5e497a59888593455777b277d9814af3d5c55d0e767b5f348661`
   }
   
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
-    return fetch('http://localhost:3001/sessions/create', config)
+
+    return fetch('http://localhost:2000/oauth/token', config)
       .then(response =>
         response.json()
-        .then(user => ({ user, response }))
-      ).then(({ user, response }) =>  {
+        .then(data => ({ data, response }))
+      ).then(({ data, response }) =>  {
+        console.log("data:");
+        console.log(data);
+        console.log("response" + response);
         if (!response.ok) {
           // If there was a problem, we want to
           // dispatch the error condition
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
+          dispatch(loginError("invalid"))
+          return Promise.reject(data)
         }
         else {
           // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.id_token)
+          localStorage.setItem('id_token', data.access_token)
           
           // Dispatch the success action
-          dispatch(receiveLogin(user))
+          dispatch(receiveLogin(data))
         }
       }).catch(err => console.log("Error: ", err))
   }

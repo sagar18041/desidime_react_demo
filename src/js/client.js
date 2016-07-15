@@ -1,4 +1,6 @@
 import React from "react";
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 import ReactDOM from "react-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
@@ -8,15 +10,23 @@ import {Router, Route, IndexRoute, hashHistory} from "react-router";
 // <Route path="topics" name="topics" component={Topics}></Route>
 // <Route path="merchants" name="merchants" component={Merchants}></Route>
 // <Route path="channels" name="channels" component={Channels}></Route>
+
+import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import api from '../../middleware/api'
+import desidimeApp from '../../reducers/reducer'
+
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore)
+
+let store = createStoreWithMiddleware(desidimeApp)
+
+console.log(store);
+
 const app = document.getElementById('app');
 
-ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={Layout}>
-      <IndexRoute component={Home}></IndexRoute>
-      <Route path="deals(/:deal)" name="deals" component={Deals}></Route>
-      <Route path="coupons" name="coupons" component={Coupons}></Route>
-      
-    </Route>
-  </Router>,
-  app);
+render(
+  <Provider store={store}>
+    <Layout />
+  </Provider>,
+  app
+)
