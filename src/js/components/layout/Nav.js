@@ -1,5 +1,17 @@
-import React from "react";
+import React, { Component, PropTypes } from 'react'
 import { IndexLink, Link } from "react-router";
+import Login from './Login'
+import { loginUser, logoutUser } from '../../../../actions/action'
+
+import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import api from '../../../../middleware/api'
+import desidimeApp from '../../../../reducers/reducer'
+
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore)
+
+let store = createStoreWithMiddleware(desidimeApp)
+
 
 export default class Nav extends React.Component {
   constructor() {
@@ -15,7 +27,7 @@ export default class Nav extends React.Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { dispatch, location, isAuthenticated, errorMessage } = this.props;
     const { collapsed } = this.state;
     const dealClass = location.pathname === "/" ? "active" : "";
     const couponClass = location.pathname.match(/^\/coupon/) ? "active" : "";
@@ -26,37 +38,34 @@ export default class Nav extends React.Component {
     const navClass = collapsed ? "collapse" : "";
 
     return (
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class={dealClass}>
-                <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Deals</IndexLink>
-              </li>
-              <li class={couponClass}>
-                <Link to="coupons" onClick={this.toggleCollapse.bind(this)}>Coupons</Link>
-              </li>
-              <li class={topicClass}>
-                <Link to="topics" onClick={this.toggleCollapse.bind(this)}>Topics</Link>
-              </li>
-              <li class={merchantClass}>
-                <Link to="merchants" onClick={this.toggleCollapse.bind(this)}>Merchants</Link>
-              </li>
-              <li class={channelClass}>
-                <Link to="channels" onClick={this.toggleCollapse.bind(this)}>Channels</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" store={store}>
+        
+        <div className='container-fluid'>
+          <a className="navbar-brand" href="#">Quotes App</a>
+           <div className='navbar-form'>
+           
+           {!isAuthenticated &&
+             <Login
+               errorMessage={errorMessage}
+               onLoginClick={ creds => dispatch(loginUser(creds)) }
+             />
+           }
+           
+           {isAuthenticated &&
+             <Logout onLogoutClick={() => dispatch(logoutUser())} />
+           }
+         
+         </div>
+       </div>
+
+
       </nav>
     );
   }
+}
+
+Nav.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string
 }

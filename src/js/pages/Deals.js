@@ -5,6 +5,7 @@ import _   from "lodash";
 // import Fetch from "fetch";
 
 import Deal from "../components/Deal";
+import Channel from "../components/Channel";
 
 export default class Deals extends React.Component {
   constructor(){

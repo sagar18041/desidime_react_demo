@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 import Footer from "../components/layout/Footer";
 import Nav from "../components/layout/Nav";
+import Login from "../components/layout/Login";
 // import ReactFetch from "react-fetch";
 
 

@@ -17,12 +17,14 @@ export default class Home extends React.Component {
     this.getDeals();
   }
   getDeals(){
-    const URL = "http://xx.xx.xx.xx/v2/android?app_version=1";
+    // const URL = "http://139.162.46.29/v2/android?app_version=1";
+    const URL = "http://localhost:2000/v2/android?app_version=1";
     var headers = new Headers();
     var request = new Request(URL, {headers: headers});
     Request
       .get(URL)
-      .set('X-Desidime-Client', 'xxxxx')
+      // .set('X-Desidime-Client', '0c50c23d1ac0ec18eedee20ea0cdce91ea68a20e9503b2ad77f44dab982034b0')
+      .set('X-Desidime-Client', '40f966d1bdc4f62edc9adfae6cb44cda93627d94cdfacbbf394daf43b28a92ec')
       .set('Accept', 'application/json' )
       .then((response)=>{
         console.log(response.body);
